@@ -26,7 +26,7 @@ fun MovieNavigation() {
             MovieScreens.DetailsScreen.name + "/{movie}",
             arguments = listOf(navArgument(name = "movie") { type = NavType.StringType })
         ) { backStackEntry ->
-            DetailsScreen(navController = navController, movieDate = backStackEntry.arguments?.getString("movie"))
+            DetailsScreen(navController = navController, movieId = backStackEntry.arguments?.getString("movie"))
         }
     }
 }

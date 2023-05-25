@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,11 +23,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.backtocding.moviebasicapp.model.getMovies
+import com.backtocding.moviebasicapp.widgets.MovieRow
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(navController: NavController, movieDate: String?) {
+fun DetailsScreen(navController: NavController, movieId: String?) {
+
+    val newMovieList = getMovies().filter { movie ->
+        movie.id == movieId
+    }
+
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(topBar = {
         TopAppBar(
@@ -51,14 +59,16 @@ fun DetailsScreen(navController: NavController, movieDate: String?) {
     }) {
         Surface(
             modifier = Modifier
+                .padding(top = it.calculateTopPadding())
                 .fillMaxHeight()
                 .fillMaxWidth()
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Top
             ) {
-                Text(text = movieDate.toString(), style = MaterialTheme.typography.headlineSmall)
+                MovieRow(movie = newMovieList.first())
+                Text(text = newMovieList.first().title, style = MaterialTheme.typography.headlineSmall)
             }
         }
     }
