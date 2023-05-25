@@ -1,9 +1,11 @@
 package com.backtocding.moviebasicapp.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.backtocding.moviebasicapp.screens.details.DetailsScreen
 import com.backtocding.moviebasicapp.screens.home.HomeScreen
 
@@ -20,8 +22,11 @@ fun MovieNavigation() {
             HomeScreen(navController = navController)
         }
 
-        composable(MovieScreens.DetailsScreen.name) {
-            DetailsScreen(navController = navController)
+        composable(
+            MovieScreens.DetailsScreen.name + "/{movie}",
+            arguments = listOf(navArgument(name = "movie") { type = NavType.StringType })
+        ) { backStackEntry ->
+            DetailsScreen(navController = navController, movieDate = backStackEntry.arguments?.getString("movie"))
         }
     }
 }
