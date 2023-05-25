@@ -16,8 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.backtocding.moviebasicapp.MovieRow
+import com.backtocding.moviebasicapp.model.Movie
+import com.backtocding.moviebasicapp.model.getMovies
 import com.backtocding.moviebasicapp.navigation.MovieScreens
+import com.backtocding.moviebasicapp.widgets.MovieRow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,23 +58,8 @@ fun HomeScreen(navController: NavController) {
 fun MainContent(
     navController: NavController,
     modifier: Modifier,
-    moviesList: List<String> = listOf(
-        "Avatar",
-        "300",
-        "Harry Potter",
-        "Happiness",
-        "Life of Pie",
-        "Kal Ho Na Ho",
-        "Zindagi Na Milego Dobara"
-    )
+    moviesList: List<Movie> = getMovies()
 ) {
-//    Surface(
-//        modifier = Modifier.padding(top = paddingValues.calculateTopPadding()),
-//        color = MaterialTheme.colorScheme.background
-//    ) {
-
-//    }
-
     Column(
         modifier = modifier.padding(
             12.dp
